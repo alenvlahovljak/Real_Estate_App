@@ -13,9 +13,9 @@ const middleware = require("../../middleware");
 router.get("/", function(req, res){
     Property.find({}, function(err, properties){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else
-        res.render("real_estates/buy/index", {properties: properties});
+            res.render("real_estates/buy/index", {properties: properties});
     });
 });
 
@@ -28,12 +28,13 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
     Property.create(req.body.property, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else{
             property.author.id = req.user._id;
             property.author.username = req.user.username;
             property.save();
-            res.redirect("/real-estates/buy");
+            req.flash("success", "Successfully created property.");
+            return res.redirect("/real-estates/buy");
         }
     });
 });
@@ -42,7 +43,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 router.get("/:id", function(req, res){
     Property.findById(req.params.id).populate("comments").populate("author.id").exec(function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else
             res.render("real_estates/buy/show", {property: property});
     });
@@ -52,7 +53,7 @@ router.get("/:id", function(req, res){
 router.get("/:id/edit", middleware.isPropertyAuthor, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else
             res.render("real_estates/buy/edit", {property: property});
     });
@@ -62,9 +63,11 @@ router.get("/:id/edit", middleware.isPropertyAuthor, function(req, res){
 router.put("/:id", middleware.isPropertyAuthor, function(req, res){
     Property.findByIdAndUpdate(req.params.id, req.body.property, function(err, property){
         if(err)
-            console.log(err);
-        else
-            res.redirect("/real-estates/buy/" + req.params.id);
+            req.flash("error", err.message);
+        else{
+            req.flash("success", "Successfully edited property.");
+            return res.redirect("/real-estates/buy/" + req.params.id);
+        }
     });
 });
 
@@ -72,13 +75,15 @@ router.put("/:id", middleware.isPropertyAuthor, function(req, res){
 router.delete("/:id", middleware.isPropertyAuthor, function(req, res){
     Property.findByIdAndDelete(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else{
             Comment.deleteMany({_id: {$in: property.comments}}, function(err){
                 if(err)
-                    console.log(err);
-                else
-                    res.redirect("/real-estates/buy");
+                    req.flash("error", err.message);
+                else{
+                    req.flash("success", "Successfully deleted property.");
+                    return res.redirect("/real-estates/buy");
+                }
             });
         }
     });

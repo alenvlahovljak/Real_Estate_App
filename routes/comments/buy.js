@@ -13,7 +13,7 @@ const middleware = require("../../middleware");
 router.get("/new", middleware.isLoggedIn, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else
             res.render("comments/buy/new", {property: property});
     });
@@ -23,11 +23,11 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else{
             Comment.create(req.body.comment, function(err, comment){
                 if(err)
-                    console.log(err);
+                    req.flash("error", err.message);
                 else{
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
@@ -35,7 +35,8 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     comment.save();
                     property.comments.push(comment);
                     property.save();
-                    res.redirect("/real-estates/buy/" + property._id);
+                    req.flash("success", "Successfully created comment."); 
+                    return res.redirect("/real-estates/buy/" + property._id);
                 }
             });
         }
@@ -46,11 +47,11 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 router.get("/:id_comment/edit", middleware.isCommentAuthor, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else{
             Comment.findById(req.params.id_comment, function(err, comment){
                 if(err)
-                    console.log(err);
+                    req.flash("error", err.message);
                 else
                     res.render("comments/buy/edit", {property: property, comment: comment});
             });
@@ -62,16 +63,16 @@ router.get("/:id_comment/edit", middleware.isCommentAuthor, function(req, res){
 router.put("/:id_comment", middleware.isCommentAuthor, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else{
             Comment.findByIdAndUpdate(req.params.id_comment, req.body.comment, function(err, comment){
                 comment.timestamp = setCommentTimestamp(comment.timestamp);
                 comment.save();
                 if(err)
-                    console.log(err);
+                    req.flash("error", err.message);
                 else{
-                    req.flash("success", "Successfully created " + property.name);
-                    res.redirect("/real-estates/buy/" + req.params.id);
+                    req.flash("success", "Successfully edited comment."); 
+                    return res.redirect("/real-estates/buy/" + req.params.id);
                 }
             });
         }
@@ -82,13 +83,15 @@ router.put("/:id_comment", middleware.isCommentAuthor, function(req, res){
 router.delete("/:id_comment", middleware.isCommentAuthor, function(req, res){
     Property.findById(req.params.id, function(err){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else{
             Comment.findByIdAndDelete(req.params.id_comment, function(err){
                 if(err)
-                    console.log(err);
-                else
-                    res.redirect("/real-estates/buy/" + req.params.id);
+                    req.flash("error", err.message);
+                else{
+                    req.flash("success", "Successfully deleted comment."); 
+                    return res.redirect("/real-estates/buy/" + req.params.id);
+                }
             }); 
         }
     });
