@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" href="/stylesheets/landing.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script> 
+    <script defer type="text/javascript" src="../scripts/landing.js"></script>
+    <title>Real Estate</title>
+</head>
+<body>
+    <!-- Following Menu -->
+    <div class="ui large top fixed hidden menu">
+        <div class="ui container">
+            <a href="/" class="active item">Home</a>
+            <a href="/real-estates/buy" class="item">Buy</a>
+            <a href="/real-estates/rent" class="item">Rent</a>
+            <div class="right menu">
+                <%if(user===undefined){%>
+                    <div class="item">
+                        <a href="/login" class="ui button">Log in</a>
+                    </div>
+                    <div class="item">
+                        <a href="/register" class="ui primary button">Sign Up</a>
+                    </div>
+                <%} else{%>
+                    <div class="item">
+                        <a href="/logout" class="ui primary button">Logout</a>
+                    </div>
+                <%}%>
+            </div>
+        </div>
+    </div> 
+    <!-- Sidebar Menu -->
+    <div class="ui vertical inverted sidebar menu">
+        <a href="/" class="active item">Home</a>
+        <a href="/real-estates/buy" class="item">Buy</a>
+        <a href="/real-estates/rent" class="item">Rent</a>
+        <%if(user===undefined){%>
+            <a href="/login" class="item">Login</a>
+            <a href="/register" class="item">Signup</a>
+        <%} else{%>
+            <a href="/logout" class="item">Logout</a>
+        <%}%>
+    </div>
+      <!-- Page Contents -->
+    <div class="pusher">
+        <div class="ui inverted vertical masthead center aligned segment">
+            <div class="ui container">
+                <div class="ui large secondary inverted pointing menu">
+                    <a class="toc item"><i class="sidebar icon"></i></a>
+                    <a href="/" class="active item">Home</a>
+                    <a href="/real-estates/buy" class="item">Buy</a>
+                    <a href="/real-estates/rent" class="item">Rent</a>
+                    <div class="right item">
+                        <%if(user===undefined){%>
+                            <a href="/login" class="ui inverted button">Log in</a>
+                            <a href="/register" class="ui inverted button">Sign Up</a>
+                        <%} else{%>
+                            <a href="/logout" class="ui inverted button">Logout</a>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+            <div class="ui text container">
+                <h1 class="ui inverted header">Get your dream property. Now.</h1>
+                <h2>Real Estate in no time.</h2>
+                <a href="#main" class="ui huge primary button">Get Started <i class="right arrow icon"></i></a>
+            </div>
+        </div>
+        <div class="ui vertical stripe segment">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="eight wide column">
+                        <h3 class="ui header">Buy a home</h3>
+                        <p>Find your place with an immersive photo experience and the 
+                        most listings, including things you won’t find anywhere else.</p>
+                        <h3 class="ui header">Sell a home</h3>
+                        <p>Whether you sell with new Offers or take another 
+                        approach, we’ll help you navigate the path to a successful sale.</p>
+                        <h3 class="ui header">Rent a home</h3>
+                        <p>We’re creating a seamless online experience – from shopping on the 
+                        largest rental network, to applying, to paying rent.</p>
+                    </div>
+                    <div class="six wide right floated column">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" class="ui large bordered rounded image">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="center aligned column">
+                        <a href="/login" class="ui huge button">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main" class="ui vertical stripe quote segment">
+            <div class="ui equal width stackable internally celled grid">
+                <div class="center aligned row">
+                    <div class="column">
+                        <h3>"What a Company"</h3>
+                        <p>
+                            <img src="https://images.unsplash.com/photo-1524593689594-aae2f26b75ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" class="ui avatar image"> 
+                            <b>Lisa</b> CEO at Zillow
+                        </p>
+                    </div>
+                    <div class="column">
+                        <h3>"I shouldn't have gone with their competitor."</h3>
+                        <p>
+                            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" class="ui avatar image"> 
+                            <b>Nan</b> Chief Fun Officer Acme Toys
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui vertical stripe segment">
+            <div class="ui text container">
+                <h3 class="ui header">How we started?</h3>
+                <p>We is the leading real estate and rental marketplace dedicated to empowering 
+                consumers with data, inspiration and knowledge around the place they call home, and 
+                connecting them with the best local professionals who can help. We serves the full 
+                lifecycle of owning and living in a home: buying, selling, renting, financing, remodeling 
+                and more. It starts with Zillow's living database of more than 110 million U.S. homes - 
+                including homes for sale, homes for rent and homes not currently on the market, as well as 
+                Zestimate home values, Rent Zestimates and other home-related information. We operates the 
+                most popular suite of mobile real estate apps, with more than two dozen apps across all major 
+                platforms.</p>
+                <h4 class="ui horizontal header divider"> Launched in 2006 and our HQ is in New York.</h4>
+            </div>
+        </div>
+    </div>
+<% include partials/footer %>

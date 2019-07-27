@@ -1,0 +1,71 @@
+<%include ../../partials/header%>
+    <div class="ui grid center aligned">
+        <div class="ten wide computer ten wide tablet sixteen wide mobile column">
+            <form class="ui form segment" action="/real-estates/rent/<%=property._id%>?_method=PUT" method="POST">
+                <h4 class="ui dividing header">Edit <%=property.name%> in Rent Section</h4>
+                <div class="two fields">
+                    <div class="ten wide field">
+                        <label>Property Name</label>
+                        <input type="text" name="property[name]" value="<%=property.name%>" required="required">
+                    </div>
+                    <div class="six wide field">
+                        <label>Price (per month)</label>
+                        <input type="number" name="property[price]" value="<%=property.price%>" required="required">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Property Image</label>
+                    <input type="text" name="property[image]" value="<%=property.image%>" required="required">
+                </div>
+                <div class="field">
+                        <label>Description</label>
+                        <textarea name="property[description]" required="required"><%=property.description%></textarea>
+                    </div>
+                <div class="four fields">
+                    <div class="field">
+                        <label>Square Feet</label>
+                        <input type="number" min="1" name="property[sqft]" value="<%=property.sqft%>" required="required">
+                    </div>
+                    <div class="field">
+                        <label>Bedrooms</label>
+                        <input type="number" min="1" name="property[bedrooms]" value="<%=property.bedrooms%>" required="required">
+                    </div>
+                    <div class="field">
+                        <label>Bathrooms</label>
+                        <input type="number" num="1" name="property[bathrooms]" value="<%=property.bathrooms%>" required="required">
+                    </div>
+                    <div class="field">
+                        <label>Parking Spots</label>
+                        <input type="number" min="0"  name="property[parkingSpots]" value="<%=property.parkingSpots%>" required="required">
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Address</label>
+                    <div class="fields">
+                        <div class="twelve wide field">
+                            <input type="text" minlength="3" name="property[street]" value="<%=property.street%>" required="required">
+                        </div>
+                        <div class="four wide field">
+                            <input type="number" minlength="3" name="property[streetNum]" value="<%=property.streetNum%>" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="ten wide field">
+                        <label>State</label>
+                        <input type="text" minlength="3" name="property[state]" value="<%=property.state%>" required="required">
+                    </div>
+                    <div class="six wide field">
+                        <label>Zip Code</label>
+                        <input type="number" minlength="3" name="property[zipCode]" value="<%=property.zipCode%>" required="required">
+                    </div>
+                    <div class="ten wide field">
+                        <label>Country</label>
+                        <input type="text" minlength="3" name="property[country]" value="<%=property.country%>" required="required">
+                    </div>
+                </div>
+                <button class="ui button orange" tabindex="0">Update Real Estate</button>
+            </form>
+        </div>
+    </div>
+<%include ../../partials/footer%>

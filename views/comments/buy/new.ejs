@@ -1,0 +1,18 @@
+<%include ../../partials/header%>
+    <div class="ui grid center aligned">
+        <div class="ten wide computer ten wide tablet sixteen wide mobile column">
+            <form class="ui form segment" action="/real-estates/buy/<%=property._id%>/comments" method="POST">
+                <h4 class="ui dividing header">Add Comment to <%=property.name%> in Buy Section</h4>
+                <div class="field">
+                    <label>Rating (1-5)</label>
+                    <input type="number" name="comment[rating]" placeholder="4" required="required">
+                </div>
+                <div class="field">
+                    <label>Review</label>
+                    <textarea name="comment[text]" placeholder="A great expreince, I wish there was more than one parking spot..." required="required"></textarea>
+                </div>
+                <button class="ui button green" tabindex="0">Comment <%=property.name%></button>
+            </form>
+        </div>
+    </div>
+<%include ../../partials/footer%>

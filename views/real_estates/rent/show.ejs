@@ -1,0 +1,167 @@
+<%include ../../partials/header%>
+    <h1>Real Estate Rent Show Page</h1>
+    <div class="ui one column grid center aligned">
+        <div class="eleven wide computer twelwe wide tablet sixteen wide mobile column segment">
+            <div class="ui cards">
+                <div class="ui fluid card">
+                    <div class="content left aligned">
+                        <img class="left floated tiny circular ui image" src="<%=property.author.id.avatar%>" alt="<%=property.author.id.username%>'s avatar"/>
+                        <div class="header">
+                            <span><%=property.author.id.firstName%> <%=property.author.id.lastName%></span>
+                        </div>
+                        <div class="meta">
+                            <span>@<%=property.author.id.username%></span>
+                        </div>
+                        <div class="ui mini statistics">
+                            <div class="green statistic">
+                                <div class="label">
+                                    <span>Positive</span>
+                                </div>
+                                <div class="value">
+                                    <span>5</span>
+                                </div>
+                            </div>
+                            <div class="red statistic">
+                                <div class="label">
+                                    <span>Negative</span>
+                                </div>
+                                <div class="value">
+                                    <span>5</span>
+                                </div>
+                            </div>
+                            <div class="statistic">
+                                <div class="label">
+                                    <span>Posts</span>
+                                </div>
+                                <div class="value">
+                                    <span>5</span>
+                                </div>
+                            </div>
+                            <div class="statistic">
+                                <div class="label">
+                                    <span>Comments</span>
+                                </div>
+                                <div class="value">
+                                    <span>5</span>
+                                </div>
+                            </div>
+                            <div class="statistic">
+                                <div class="label">
+                                    <span>Registration Date</span>
+                                </div>
+                                <div class="value">
+                                    <span><%=moment(property.author.id.timestamp).format('ll')%></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%if(user && property.author.id.equals(user._id)){%>
+                        <div class="extra content">
+                            <a class="ui basic orange button" href="/real-estates/rent/<%=property._id%>/edit">Edit <%=property.name%></a>
+                            <form action="/real-estates/rent/<%=property._id%>?_method=DELETE" method="POST">
+                                <button class="ui basic red button">Delete <%=property.name%></button>
+                            </form> 
+                        </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+        <div class="eleven wide computer twelwe wide tablet sixteen wide mobile column segment">
+            <div class="ui items segment">
+                <h3 class="ui header"><%=property.name%></h3>
+                <div class="ui divider"></div>
+                <div class="ui image large center aligned">
+                    <img src="<%=property.image%>" alt="<%=property.name%>">
+                </div>
+                <div class="ui divider"></div>
+                <div class="ui item left aligned container">
+                    <div class="ui two column stackable grid container">
+                        <div class="column eight wide">
+                            <div class="content">
+                                <div class="meta">
+                                    <span>Description</span>
+                                </div>
+                                <div class="description">
+                                    <p><%=property.description.slice(0, 100)%></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column eight wide">
+                            <div class="content">
+                                <div class="meta">
+                                    <i class="map marker alternate icon"></i><%=property.streetNum%> <%=property.street%>, <%=property.state%> <%=property.zipCode%>, <%=property.country%>
+                                </div>
+                                <div class="meta">
+                                    <i class="cube icon"></i> <%=property.sqft%>
+                                </div>
+                                <div class="meta">
+                                    <span class="price"><i class="dollar sign icon"></i><%=property.price%>/month</span>
+                                </div>
+                                <div class="extra">
+                                    <span>Additional Details</span>
+                                    <p>
+                                    <i class="bed icon"></i><%=property.bedrooms%> |
+                                    <i class="bath icon"></i><%=property.bathrooms%> |
+                                    <i class="car icon"></i><%=property.parkingSpots%> 
+                                    </p>
+                                </div>
+                            </div> 
+                            <div class="ui divider"></div>
+                            <div class="ui two column stackable grid container">
+                                <span class="ui seven wide left aligned column">Author: <a href="#"><%=property.author.username%></a></span>
+                                <span class="ui nine wide right aligned column">Posted: <span><%=moment(property.timestamp).format('LL')%></span>
+                            </div>
+                        </div>
+                    </div>     
+                </div>
+            </div>
+            <div class="ui container left aligned segment">
+                <div class="ui container ">
+                    <h3 class="ui header">Comments</h3>
+                </div>
+                <div class="ui divider"></div>
+                <div class="ui container right aligned">
+                    <a class="tiny ui button green" href="/real-estates/rent/<%=property._id%>/comments/new"><i class="plus circle icon"></i> Comment</a>
+                </div>
+                <div class="ui container folat left">
+                    <%if(property.comments.length===1){%>
+                        <span class="ui sub header">Showing <%=property.comments.length%> comment</span>
+                    <%} else if(property.comments.length>1){%>
+                        <span class="ui sub header">Showing <%=property.comments.length%> comments</span>
+                    <%}%>
+                </div>
+                <div class="ui comments">
+                    <%if(property.comments.length>0){%>
+                        <%for(var i=0; i<property.comments.length; i++){%>                        
+                            <div class="comment left aligned">
+                                <a class="avatar">
+                                    <img src="<%=property.comments[i].author.avatar%>">
+                                </a>
+                                <div class="content">
+                                    <a class="author"><%=property.comments[i].author.username%></a>
+                                    <div class="metadata">
+                                        <div class="date"><%=moment(property.comments[i].timestamp).format('LLL')%></div>
+                                        <%if(user && property.comments[i].author.id.equals(user._id)){%>    
+                                            <a class="mini ui basic orange button" href="/real-estates/rent/<%=property._id%>/comments/<%=property.comments[i]._id%>/edit">Edit</a>
+                                            <form action="/real-estates/rent/<%=property._id%>/comments/<%=property.comments[i]._id%>?_method=DELETE" method="POST">
+                                                <button class="mini ui basic red button">Delete</button>
+                                            </form>
+                                        <%}%>
+                                    </div>
+                                    <div class="text">
+                                        <div class="rating">
+                                            <div class="ui star rating" data-rating="<%=property.comments[i].rating%>"></div>
+                                        </div>
+                                        <p class="text"><%=property.comments[i].text%></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}%>
+                    <%} else{%>
+                        <h3 class="ui header center aligned">No comments to show</h3>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+<%include ../../partials/footer%>

@@ -1,0 +1,60 @@
+<%include ../../partials/header%>
+    <h1>Real Estate Buy Index Page</h1>
+    <div class="ui one column grid center aligned">
+        <div class="eleven wide computer twelwe wide tablet sixteen wide mobile column segment">
+            <div class="ui items segment">
+                <%var count=0%>
+                <%for(var i=0; i<properties.length; i++){%>
+                    <%if(properties[i].status==="buy"){%>
+                        <div class="ui item left aligned container">
+                            <div class="ui image medium">
+                                <img src="<%=properties[i].image%>" alt="<%=properties[i].name%>">
+                            </div>
+                            <div class="content">
+                                <a class="header"><%=properties[i].name%></a>
+                                <div class="meta">
+                                    <i class="map marker alternate icon"></i><%=properties[i].streetNum%> <%=properties[i].street%>, <%=properties[i].state%> <%=properties[i].zipCode%>, <%=properties[i].country%>
+                                </div>
+                                <div class="meta">
+                                    <i class="cube icon"></i> <%=properties[i].sqft%>
+                                </div>
+                                <div class="meta">
+                                    <span class="price"><i class="dollar sign icon"></i><%=properties[i].price%></span>
+                                </div>
+                                <div class="meta">
+                                    <span>Description</span>
+                                </div>
+                                <div class="description">
+                                    <p><%=properties[i].description%></p>
+                                </div>
+                                <div class="extra">
+                                    <span>Additional Details</span>
+                                    <p>
+                                    <i class="bed icon"></i><%=properties[i].bedrooms%> |
+                                    <i class="bath icon"></i><%=properties[i].bathrooms%> |
+                                    <i class="car icon"></i><%=properties[i].parkingSpots%> 
+                                    </p>
+                                </div>
+                                <div class="meta ui container right aligned">
+                                    <span class="ui column">Author: <a href="#"><%=properties[i].author.username%></a></span>
+                                    <span class="ui column">Posted: <span><%=moment(properties[i].timestamp).format('ll')%></span>
+                                </div>
+                            </div>
+                            <a href="/real-estates/buy/<%=properties[i]._id%>">More</a>
+                        </div>
+                        <div class="ui divider"></div>
+                        <%count++%>
+                    <%}%>
+                <%}%>
+                <%if(count===0){%>
+                    <span>No results to show</span>
+                <%} else if(count===1){%>
+                    <span>Showing <%=count%> result</span>
+                <%} else{%>
+                    <span>Showing <%=count%> results</span>
+                <%}%>
+            </div>
+            
+        </div>
+    </div>
+<%include ../../partials/footer%>
