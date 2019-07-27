@@ -42,10 +42,11 @@ router.post("/register", function(req, res){
     });
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log(err);
+            req.flash("error", err.message);
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Welcome for the first time " + req.user);
             res.redirect("/real-estates");
         }); 
     });
@@ -58,7 +59,7 @@ router.get("/login", function(req, res){
 
 //CREATE Login route
 router.post("/login", passport.authenticate("local", 
-    {
+    {   
         successRedirect: "/real-estates",
         failureRedirect: "/login",
     }), function(req, res){
@@ -67,7 +68,8 @@ router.post("/login", passport.authenticate("local",
 //Logout route
 router.get("/logout", function(req, res){
     req.logout();
-    res.redirect("/");
+    req.flash("success", "Goodbye " + req.user);
+    return res.redirect("/");
 });
 
 module.exports = router;

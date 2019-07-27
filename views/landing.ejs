@@ -12,6 +12,24 @@
     <title>Real Estate</title>
 </head>
 <body>
+    <%if(error && error.length>0){%>
+        <div class="ui warning message">
+            <i class="close icon"></i>
+            <div class="header">
+                <span>Error!</span>
+            </div>
+            <p><%=error%></p>
+        </div>
+    <%}%>
+    <%if(success && success.length>0){%>
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">
+                <span>Success!</span>
+            </div>
+            <p><%=success%></p>
+        </div>
+    <%}%>
     <!-- Following Menu -->
     <div class="ui large top fixed hidden menu">
         <div class="ui container">

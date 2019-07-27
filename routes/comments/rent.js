@@ -13,9 +13,11 @@ const middleware = require("../../middleware");
 router.get("/new", middleware.isLoggedIn, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
-        else
-            res.render("comments/rent/new", {property: property});
+            req.flash("error", err.message);
+        else{
+            req.flash("success", "Successfully created " + property.name);
+            return res.render("comments/rent/new", {property: property});
+        }
     });
 });
 
@@ -23,7 +25,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("error", err.message);
         else{
             Comment.create(req.body.comment, function(err, comment){
                 if(err)
@@ -46,13 +48,15 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 router.get("/:id_comment/edit", middleware.isCommentAuthor, function(req, res){
     Property.findById(req.params.id, function(err, property){
         if(err)
-            console.log(err);
+            req.flash("success", "Successfully created " + property.name);
         else{
             Comment.findById(req.params.id_comment, function(err, comment){
                 if(err)
-                    console.log(err);
-                else
-                    res.render("comments/rent/edit", {property: property, comment: comment});
+                    req.flash("success", "Successfully created " + property.name);
+                else{
+                    req.flash("success", "Successfully created " + property.name);
+                    return res.render("comments/rent/edit", {property: property, comment: comment});
+                }
             });
         }
     });

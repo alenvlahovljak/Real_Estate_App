@@ -46,6 +46,8 @@ passport.deserializeUser(User.deserializeUser());
 //Local Midleware config
 app.use(function(req, res, next){
     res.locals.user = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     res.locals.moment = moment;
     next();
 });
@@ -56,6 +58,11 @@ app.use("/real-estates/buy" ,propertiesBuyRoutes);
 app.use("/real-estates/rent", propertiesRentRoutes);
 app.use("/real-estates/buy/:id/comments", commentsBuyRoutes);
 app.use("/real-estates/rent/:id/comments", commentsRentRoutes);
+
+//Error 404 route
+app.get("*", function(req, res){
+    res.send(404);
+});
 
 //Express listening route
 app.listen(3000, function(){

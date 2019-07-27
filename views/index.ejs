@@ -9,13 +9,25 @@
     <title>Real Estate</title>
 </head>
 <body>
-    <div class="container">
-        <div class="alert alert-danger" role="alert">
-
-        </div>
-        <div class="alert alert-success" role="alert">
-
-        </div>
+    <div class="ui container">
+        <%if(error && error.length>0){%>
+            <div class="ui warning message">
+                <i class="close icon"></i>
+                <div class="header">
+                    <span>Error!</span>
+                </div>
+                <p><%=error%></p>
+            </div>
+        <%}%>
+        <%if(success && success.length>0){%>
+            <div class="ui success message">
+                <i class="close icon"></i>
+                <div class="header">
+                    <span>Success!</span>
+                </div>
+                <p><%=success%></p>
+            </div>
+        <%}%>
     </div>
     <div id="landing-header">
  		<h1>Welcome to Real Estate Application!</h1>
@@ -28,4 +40,3 @@
       <li></li>
       <li></li>
     </ul>
-<% include partials/footer %>

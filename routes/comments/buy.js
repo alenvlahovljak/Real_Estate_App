@@ -69,8 +69,10 @@ router.put("/:id_comment", middleware.isCommentAuthor, function(req, res){
                 comment.save();
                 if(err)
                     console.log(err);
-                else
+                else{
+                    req.flash("success", "Successfully created " + property.name);
                     res.redirect("/real-estates/buy/" + req.params.id);
+                }
             });
         }
     });
