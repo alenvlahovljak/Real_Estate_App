@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-
 //Authentication config
 app.use(require("express-session")({
     secret: "So many books, so little time",
