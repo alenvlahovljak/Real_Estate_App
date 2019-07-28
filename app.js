@@ -24,7 +24,7 @@ const commentsRentRoutes = require("./routes/comments/rent");
 //Application config
 let url = process.env.DATABASEURL || "mongodb://localhost:27017/Real_Estate_Application";
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
+mongoose.connect(url, {useNewUrlParser: true});
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
