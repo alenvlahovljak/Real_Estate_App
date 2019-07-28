@@ -46,7 +46,7 @@ router.post("/register", function(req, res){
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Welcome for the first time " + req.user);
+            req.flash("success", "Welcome for the first time " + req.user.username);
             res.redirect("/real-estates");
         }); 
     });
@@ -67,8 +67,8 @@ router.post("/login", passport.authenticate("local",
 
 //Logout route
 router.get("/logout", function(req, res){
+    req.flash("success", "Goodbye " + req.user.username);
     req.logout();
-    req.flash("success", "Goodbye " + req.user);
     return res.redirect("/");
 });
 

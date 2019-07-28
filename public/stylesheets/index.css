@@ -17,6 +17,10 @@ body{
     color: #fff;
 }
 
+.ui.message{
+    z-index: 1;
+}
+
 .slideshow{ 
     position: fixed;
     width: 100%;

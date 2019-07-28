@@ -22,7 +22,8 @@ const commentsBuyRoutes = require("./routes/comments/buy");
 const commentsRentRoutes = require("./routes/comments/rent");
 
 //Application config
-mongoose.connect("mongodb://localhost:27017/Real_Estate_Application", {useNewUrlParser: true});
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb+srv://alen1998:25386795@realestateapplication-w315q.mongodb.net/test?retryWrites=true&w=majority");
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -61,10 +62,14 @@ app.use("/real-estates/rent/:id/comments", commentsRentRoutes);
 
 //Error 404 route
 app.get("*", function(req, res){
-    res.send(404);
+    res.send("Page not found");
 });
 
-//Express listening route
-app.listen(3000, function(){
+//Express listening route (Local & Heroku)
+let port = process.env.PORT;
+if(port==null || port==""){
+  port = 8000;
+}
+app.listen(port, function(){
     console.log("Application has started!");
 });
