@@ -22,6 +22,7 @@ const commentsBuyRoutes = require("./routes/comments/buy");
 const commentsRentRoutes = require("./routes/comments/rent");
 
 //Application config
+let url = process.env.DATABASEURL || "mongodb://localhost:27017/Real_Estate_Application";
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
 app.set("view engine", "ejs");
