@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
     state: String,
     zipCode: String,
     country: String,
-    timestamp: {type: Date, default: Date.now}
+    timestamp: {type: Date, default: Date.now},
+    propertiesCount: {type: Number, default: 0}
 });
 
 userSchema.plugin(passportLocalMongoose);

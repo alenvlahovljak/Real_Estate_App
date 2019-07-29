@@ -1,0 +1,79 @@
+<%include ../partials/header%>
+    <div class="ui one column stackable center aligned page grid">
+        <div class="column twelwe wide">
+            <div class="ui segment">
+                <div class="ui items">
+                    <div class="item">
+                        <div class="ui medium image">
+                        <img src="<%=realEstate.image%>">
+                        </div>
+                        <div class="content">
+                            <a class="header"><%=realEstate.title%></a>
+                            <%if(user!==undefined && realEstate.author.id.equals(user._id)){%>
+                                <div class="extra">
+                                    <div class="ui container one column stackable center aligned page grid">
+                                        <a class="ui yellow button" href="/real-estates/<%=realEstate._id%>/edit">Edit</a>
+                                        <form action="/real-estates/<%=realEstate._id%>/?_method=DELETE" method="POST">
+                                            <button class="ui red button">Remove</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            <%}%>
+                            <div class="meta">
+                                <span>Description</span>
+                            </div>
+                            <div class="description">
+                                <p><%=realEstate.description%></p>
+                            </div></br>
+                            <div class="extra">
+                                <span>Additional Details</span></br>
+                                <button class="ui facebook button"><i class="facebook icon"></i> Facebook</button>
+                                <button class="ui twitter button"><i class="twitter icon"></i>Twitter</button>
+                                <button class="ui instagram button"><i class="instagram icon"></i>Instagram</button>
+                            </div>
+                            <div class="extra">
+                                <p><em>Created by: <%=realEstate.author.username%></em></p>
+                            </div>
+                            <hr/> 
+                            <div class="ui container right aligned">
+                                <a class="ui green button" href="/real-estates/<%=realEstate._id%>/reviews/new">Add new review</a>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui segment one column stackable center aligned page grid">
+                <div class="column fifteen wide left aligned">
+                    <div class="ui comments">
+                        <h3 class="ui dividing header">Reviews</h3>
+                        <%for(var i=0; i<realEstate.reviews.length; i++){%>
+                            <div class="comment">
+                                <a class="avatar">
+                                    <img src="<%=realEstate.reviews[i].author.avatar%>">
+                                </a>
+                                <div class="content">
+                                    <a class="author"><%=realEstate.reviews[i].author.username%></a>
+                                    <div class="metadata">
+                                        <span class="date"><%=moment(realEstate.reviews[i].timestamp).format("lll")%></span>
+                                    </div>
+                                    <div class="text">
+                                        <div class="ui star rating" data-rating="<%=realEstate.reviews[i].rating%>"></div>
+                                        <p><%=realEstate.reviews[i].comment%></p>
+                                    </div>
+                                    <%if(user!==undefined && realEstate.reviews[i].author.id.equals(user._id)){%>
+                                        <div class="field">
+                                            <a href="/real-estates/<%=realEstate._id%>/reviews/<%=realEstate.reviews[i]._id%>/edit" class="mini ui orange basic button">Edit</a>
+                                            <form class="ui action input" action="/real-estates/<%=realEstate._id%>/reviews/<%=realEstate.reviews[i]._id%>?_method=DELETE" method="POST">
+                                                <button class="mini ui button red basic button">Delete</button>
+                                            </form>
+                                        </div>
+                                    <%}%>
+                                </div>
+                            </div>
+                        <%}%>
+                    </div>
+                </div>
+            </div>                 
+        </div>
+    </div>
+<%include ../partials/footer%>

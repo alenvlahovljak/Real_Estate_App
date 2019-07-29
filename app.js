@@ -22,8 +22,10 @@ const commentsBuyRoutes = require("./routes/comments/buy");
 const commentsRentRoutes = require("./routes/comments/rent");
 
 //Application config
+let url = process.env.DATABASEURL || "mongodb://localhost:27017/Real_Estate_Application";
+mongoose.connect(url, {useNewUrlParser: true});
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true});
+//mongoose.connect("mongodb+srv://alen1998:25386795@realestateapplication-w315q.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));

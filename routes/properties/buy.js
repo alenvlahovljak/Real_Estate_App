@@ -5,6 +5,7 @@ const router = express.Router();
 //Mongoose model config
 const Property = require("../../models/Property");
 const Comment = require("../../models/Comment");
+const User = require("../../models/User");
 
 //Middleware config
 const middleware = require("../../middleware");
@@ -30,6 +31,13 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         if(err)
             req.flash("error", err.message);
         else{
+            User.findById(req.user._id, function(err, user){
+                if(err)
+                    req.flash("error", err.message);
+                else
+                    user.propertiesCount++;
+                user.save();
+            });
             property.author.id = req.user._id;
             property.author.username = req.user.username;
             property.save();
@@ -74,9 +82,17 @@ router.put("/:id", middleware.isPropertyAuthor, function(req, res){
 //DESTROY route
 router.delete("/:id", middleware.isPropertyAuthor, function(req, res){
     Property.findByIdAndDelete(req.params.id, function(err, property){
+        console.log(property)
         if(err)
             req.flash("error", err.message);
         else{
+            User.findById(req.user._id, function(err, user){
+                if(err)
+                    req.flash("error", err.message);
+                else
+                    user.propertiesCount--;
+                user.save();
+            });
             Comment.deleteMany({_id: {$in: property.comments}}, function(err){
                 if(err)
                     req.flash("error", err.message);

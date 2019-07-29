@@ -1,0 +1,18 @@
+<%include ../partials/header%>
+    <div class="ui one column stackable center aligned page grid">
+        <div class="column ten wide">
+            <div class="ui segment">
+                <form action="/real-estates/<%=realEstate._id%>/reviews/<%=review._id%>?_method=PUT" method="POST" class="ui form">
+                    <h4 class="ui dividing header">Edit Review for <%=realEstate.title%></h4>
+                    <div class="field">
+                        <input type="number" name="review[rating]" min="1" max="5" value="<%=review.rating%>">
+                    </div>
+                    <div class="field">
+                        <textarea name="review[comment]"><%=review.comment%></textarea>
+                    </div>
+                    <button class="ui green button">Edit Review</button>
+                </form>
+            </div>
+        </div>      
+    </div>
+<%include ../partials/footer%>

@@ -5,6 +5,7 @@ const router = express.Router({mergeParams: true});
 //Mongoose models config
 const Property = require("../../models/Property");
 const Comment = require("../../models/Comment");
+const User = require("../../models/User");
 
 //Middleware config
 const middleware = require("../../middleware");
@@ -29,6 +30,13 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                 if(err)
                     req.flash("error", err.message);
                 else{
+                    User.findById(req.user._id, function(err, user){
+                        if(err)
+                            req.flash("error", err.message);
+                        else
+                            user.commentsCount++;
+                        user.save();
+                    });
                     comment.author.id = req.user._id;
                     comment.author.username = req.user.username;
                     comment.author.avatar = req.user.avatar;
@@ -89,6 +97,13 @@ router.delete("/:id_comment", middleware.isCommentAuthor, function(req, res){
                 if(err)
                     req.flash("error", err.message);
                 else{
+                    User.findById(req.user._id, function(err, user){
+                        if(err)
+                            req.flash("error", err.message);
+                        else
+                            user.commentsCount--;
+                        user.save();
+                    });
                     req.flash("success", "Successfully deleted comment."); 
                     return res.redirect("/real-estates/buy/" + req.params.id);
                 }

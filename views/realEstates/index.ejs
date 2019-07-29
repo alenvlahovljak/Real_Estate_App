@@ -1,0 +1,27 @@
+<%include ../partials/header%>
+    <h1 class="ui header centered">Available buildings:</h1>
+    <div class="ui one column stackable center aligned page grid">
+        <div class="column ten wide">
+            <%for(var i=0; i<realEstates.length; i++){%>
+                <div class="ui segment items">
+                    <div class="item">
+                        <div class="ui small image">
+                        <img src="<%=realEstates[i].image%>">
+                        </div>
+                        <div class="content">
+                        <div class="header"><%=realEstates[i].title%></div>
+                        <div class="meta">
+                            <span class="price">&euro; <%=realEstates[i].price%>/month</span>
+                            <span class="stay">Available: <%=moment(realEstates[i].availability).format("LL")%></span>
+                        </div>
+                        <div class="description">
+                            <p><%=realEstates[i].description.slice(0, 100)%>...</p>
+                        </div>
+                        </div>
+                        <a href="/real-estates/<%=realEstates[i]._id%>">More</a>
+                    </div>  
+                </div>
+            <%}%>
+        </div> 
+    </div>
+<%include ../partials/footer%>

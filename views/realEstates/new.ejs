@@ -1,0 +1,35 @@
+<%include ../partials/header%>
+    <div class="ui one column stackable center aligned page grid">
+        <div class="column ten wide">
+            <div class="ui segment">
+                <form action="/real-estates" method="POST" class="ui form">
+                    <h4 class="ui dividing header">Add New Real Estate:</h4>
+                    <div class="field">
+                        <div class="field">
+                            <input type="text" name="realEstate[title]" placeholder="Name" required>
+                        </div>         
+                    </div>
+                    <div class="field">
+                        <div class="field">
+                            <input type="text" name="realEstate[image]" placeholder="Image link" required>
+                        </div>         
+                    </div>
+                    <div class="field">
+                        <div class="fields">
+                            <div class="nine wide field">
+                                <input type="date" name="realEstate[availability]" required>
+                            </div>
+                            <div class="seven wide field">
+                                <input type="number" name="realEstate[price]" placeholder="Price" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <textarea name="realEstate[description]" placeholder="Describe your Real Estate here..."></textarea>
+                    </div>
+                    <button class="ui green button">Add Real Estate</button>
+                </form>
+            </div>
+        </div>      
+    </div>
+<%include ../partials/footer%>

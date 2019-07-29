@@ -1,0 +1,35 @@
+<%include ../partials/header%>
+    <div class="ui one column stackable center aligned page grid">
+        <div class="column ten wide">
+            <div class="ui segment">
+                <form action="/real-estates/<%=realEstate._id%>/?_method=PUT" method="POST" class="ui form">
+                    <h4 class="ui dividing header">Add New Real Estate:</h4>
+                    <div class="field">
+                        <div class="field">
+                            <input type="text" name="realEstate[title]" value="<%=realEstate.title%>" required>
+                        </div>         
+                    </div>
+                    <div class="field">
+                        <div class="field">
+                            <input type="text" name="realEstate[image]" value="<%=realEstate.image%>" required>
+                        </div>         
+                    </div>
+                    <div class="field">
+                        <div class="fields">
+                            <div class="nine wide field">
+                                <input type="date" name="realEstate[availability]"  value="<%=moment(realEstate.availability).format('YYYY-MM-DD')%>" required>
+                            </div>
+                            <div class="seven wide field">
+                                <input type="number" name="realEstate[price]" value="<%=realEstate.price%>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <textarea name="realEstate[description]"><%=realEstate.description%></textarea>
+                    </div>
+                    <button class="ui green button">Update Real Estate</button>
+                </form>
+            </div>
+        </div>      
+    </div>
+<%include ../partials/footer%>
