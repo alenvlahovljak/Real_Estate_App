@@ -23,20 +23,14 @@ const commentsRentRoutes = require("./routes/comments/rent");
 
 //Application config
 let url = process.env.DATABASEURL || "mongodb://localhost:27017/Real_Estate_Application";
-<<<<<<< HEAD
 mongoose.connect(url, {useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 //mongoose.connect("mongodb+srv://alen1998:25386795@realestateapplication-w315q.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
-=======
-mongoose.Promise = global.Promise;
-mongoose.connect(url, {useNewUrlParser: true});
->>>>>>> 9a33db9a0e4bc5562aee7f1fad23ce4b78f7004c
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-
 
 //Authentication config
 app.use(require("express-session")({
@@ -49,7 +43,6 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 //Local Midleware config
 app.use(function(req, res, next){
