@@ -11,7 +11,8 @@ To get the Node server running locally:
 - Install MongoDB Community Edition ([instructions](https://docs.mongodb.com/manual/installation/#tutorials)) and run it by executing `mongod`
 - `npm run dev` to start the local server
 
-Alternately, to quickly try out this repo in Heroku [![Remix on Glitch](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlUFTwdTNebkJh1sCmPDd7-Vvxb87PYtnT9mqH-ISbb7hkIsJW)](https://glitch.com/edit/#!/remix/realworld)
+Alternately, to quickly try out this repo in Heroku: https://real-estate-app-77.herokuapp.com/
+
 
 # Code Overview
 
