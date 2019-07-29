@@ -1,9 +1,6 @@
-# ![Node/Express/Mongoose Example App]
-(project-image.PNG)
+# ![Node/Express/Mongoose Example App](project-image.PNG)
 
-[![Build Status](https://travis-ci.org/anishkny/node-express-realworld-example-app.svg?branch=master)](https://travis-ci.org/anishkny/node-express-realworld-example-app)
-
-> ### Example Node (Express + Mongoose) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) API spec.
+> ### Example Node (Express + Mongoose) real world application example (CRUD, auth, REST, etc.).
 
 <a href="https://thinkster.io/tutorials/node-json-api" target="_blank"><img width="454" src="https://raw.githubusercontent.com/gothinkster/realworld/master/media/learn-btn-hr.png" /></a>
 
