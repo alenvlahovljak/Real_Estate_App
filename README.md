@@ -26,7 +26,8 @@ Alternately, to quickly try out this repo in Heroku: https://real-estate-app-77.
 - [moment.js](https://github.com/moment/moment) - Parse, validate, manipulate, and display dates in javascript.
 - [mongoose](https://github.com/Automattic/mongoose) - For modeling and mapping MongoDB data to JavaScript. 
 - [passport.js](https://github.com/jaredhanson/passport) - For handling user authentication.
-- [passport.js](https://github.com/jaredhanson/passport-local) - Passport.js strategy for authenticating with a username and password.
+- [passport-local](https://github.com/jaredhanson/passport-local) - Passport.js strategy for authenticating with a username and password.
+- [passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose) - Passport-Local Mongoose is a Mongoose plugin that simplifies building username and password login with Passport.js.
 
 ## Application Structure
 
