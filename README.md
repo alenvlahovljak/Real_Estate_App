@@ -22,10 +22,11 @@ Alternately, to quickly try out this repo in Heroku: https://real-estate-app-77.
 - [connect-flash](https://github.com/jaredhanson/connect-flash) - Flash message middleware for Connect and Express.
 - [ejs](https://github.com/mde/ejs) - Embedded JavaScript templates.
 - [express.js](https://github.com/expressjs/express) - The server for handling and routing HTTP requests.
-- [express-session](https://github.com/expressjs/session) - Simple session middleware for Express.js.
+- [method-override](https://github.com/expressjs/method-override) - Override HTTP verbs.
+- [moment.js](https://github.com/moment/moment) - Parse, validate, manipulate, and display dates in javascript.
 - [mongoose](https://github.com/Automattic/mongoose) - For modeling and mapping MongoDB data to JavaScript. 
-- [passport](https://github.com/jaredhanson/passport) - For handling user authentication.
-
+- [passport.js](https://github.com/jaredhanson/passport) - For handling user authentication.
+- [passport.js](https://github.com/jaredhanson/passport-local) - Passport.js strategy for authenticating with a username and password.
 
 ## Application Structure
 
