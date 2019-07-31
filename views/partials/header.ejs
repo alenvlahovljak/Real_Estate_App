@@ -33,12 +33,12 @@
                     <div class="ui text menu">
                         <div class="ui right dropdown item">
                             <div class="item">
-                                <img class="ui mini circular image" src="<%=user.avatar%>">
+                                <img class="ui mini circular image" src="<%=user.avatar%>" alt="<%=user.username%>'s avatar">
                             </div>
                             <a href=""><%=user.username%></a>
                             <i class="dropdown icon"></i>
                             <div class="menu">
-                                <a href="#" class="ui item">Profile</a>
+                                <a href="/real-estates/users/<%=user._id%>" class="ui item">Profile</a>
                                 <div class="ui divider"></div>
                                 <a href="/real-estates/buy/new" class="ui item">Sell</a>
                                 <a href="/real-estates/rent/new" class="ui item">Rent</a>

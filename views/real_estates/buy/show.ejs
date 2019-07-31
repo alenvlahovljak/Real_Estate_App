@@ -107,7 +107,7 @@
                             </div> 
                             <div class="ui divider"></div>
                             <div class="ui two column stackable grid container">
-                                <span class="ui seven wide left aligned column">Author: <a href="#"><%=property.author.username%></a></span>
+                                <span class="ui seven wide left aligned column">Author: <a href="/real-estates/users/<%=property.author.id._id%>"><%=property.author.username%></a></span>
                                 <span class="ui nine wide right aligned column">Posted: <span><%=moment(property.timestamp).format('LL')%></span>
                             </div>
                         </div>

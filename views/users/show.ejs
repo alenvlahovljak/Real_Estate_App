@@ -1,0 +1,120 @@
+<%include ../partials/header%>
+<div class="ui two column doubling stackable grid">
+    <div class="ui column five wide">
+        <div class="ui card">
+            <div class="ui centered card">
+                <div class="image">
+                    <img src="<%=userAuthor.avatar%>" src="<%=userAuthor.username%>'s avatar">
+                </div>
+                <div class="content">
+                    <div class="header">
+                        <span><%=userAuthor.firstName%></span>
+                        <span><%=userAuthor.lastName%></span>
+                    </div>
+                    <div class="meta">
+                        <span>@<%=userAuthor.username%></span>
+                    </div>
+                    <div class="description">
+                        <p><i class="envelope outline icon"></i> <%=userAuthor.email%></p>
+                        <p><i class="map marker icon"></i> <%=userAuthor.streetNum%> <%=userAuthor.street%></p>
+                        <p><i class="map icon"></i> <%=userAuthor.state%></p>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <span class="right floated">Joined on <%=moment(userAuthor.timestamp).format('ll')%></span>
+                    <span><i class="user icon"></i>-1 Friends</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui column eleven wide">
+        <div class="ui five mini statistics segment">
+            <div class="green statistic">
+                <div class="label">
+                    <span>Positive</span>
+                </div>
+                <div class="value">
+                    <span>5</span>
+                </div>
+            </div>
+            <div class="red statistic">
+                <div class="label">
+                    <span>Negative</span>
+                </div>
+                <div class="value">
+                    <span>5</span>
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="label">
+                    <span>Rating</span>
+                </div>
+                <div class="value">
+                    <span>--1</span>
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="label">
+                    <span>Posts</span>
+                </div>
+                <div class="value">
+                    <span><%=userAuthor.propertiesCount%></span>
+                </div>
+            </div>
+            <div class="statistic">
+                <div class="label">
+                    <span>Last Active</span>
+                </div>
+                <div class="value">
+                    <span>-1</span>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="ui container right aligned">
+            <a class="tiny ui button green" href="/real-estates/users/<%=userAuthor._id%>/reviews/new"><i class="plus circle icon"></i> Add Review</a>
+        </div>
+        <div class="ui divider"></div>
+        <div class="ui container folat left">
+            <%if(userAuthor.reviews.length===1){%>
+                <span class="ui sub header">Showing <%=userAuthor.reviews.length%> review</span>
+            <%} else if(userAuthor.reviews.length>1){%>
+                <span class="ui sub header">Showing <%=userAuthor.reviews.length%> reviews</span>
+            <%}%>
+        </div>
+        <div class="ui comments">
+            <%if(userAuthor.reviews.length>0){%>
+                <%for(var i=0; i<userAuthor.reviews.length; i++){%>                        
+                    <div class="comment left aligned">
+                        <a class="avatar">
+                            <img src="<%=userAuthor.reviews[i].author.avatar%>" alt="<%=userAuthor.reviews[i].author.username%>'s avatar">
+                        </a>
+                        <div class="content">
+                            <a class="author"><%=userAuthor.reviews[i].author.username%></a>
+                            <div class="metadata">
+                                <div class="date"><%=moment(userAuthor.reviews[i].timestamp).format('LLL')%></div>
+                                <%if(user && userAuthor.reviews[i].author.id.equals(user._id)){%>    
+                                    <a class="mini ui basic orange button" href="/real-estates/users/<%=userAuthor._id%>/reviews/<%=userAuthor.reviews[i]._id%>/edit">Edit</a>
+                                    <form action="/real-estates/users/<%=userAuthor._id%>/reviews/<%=userAuthor.reviews[i]._id%>?_method=DELETE" method="POST">
+                                        <button class="mini ui basic red button">Delete</button>
+                                    </form>
+                                <%}%>
+                            </div>
+                            <div class="text">
+                                <div class="rating">
+                                    <div class="ui star rating" data-rating="<%=userAuthor.reviews[i].rating%>"></div>
+                                </div>
+                                <p class="text"><%=userAuthor.reviews[i].text%></p>
+                            </div>
+                        </div>
+                    </div>
+                <%}%>
+            <%} else{%>
+                <h3 class="ui header center aligned"><%=userAuthor.username%> doesn't have reviews</h3>
+            <%}%>
+        </div>
+    </div>
+</div>
+    
+<%include ../partials/footer%>

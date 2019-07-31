@@ -16,6 +16,8 @@ const Comment = require("./models/Comment");
 
 //Routes config
 const indexAuthRoute = require("./routes/index");
+const usersRoutes = require("./routes/user");
+const usersReviewsRoutes = require("./routes/review");
 const propertiesBuyRoutes = require("./routes/properties/buy");
 const propertiesRentRoutes = require("./routes/properties/rent");
 const commentsBuyRoutes = require("./routes/comments/buy");
@@ -23,20 +25,14 @@ const commentsRentRoutes = require("./routes/comments/rent");
 
 //Application config
 let url = process.env.DATABASEURL || "mongodb://localhost:27017/Real_Estate_Application";
-<<<<<<< HEAD
 mongoose.connect(url, {useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 //mongoose.connect("mongodb+srv://alen1998:25386795@realestateapplication-w315q.mongodb.net/test?retryWrites=true&w=majority", {useNewUrlParser: true});
-=======
-mongoose.Promise = global.Promise;
-mongoose.connect(url, {useNewUrlParser: true});
->>>>>>> 9a33db9a0e4bc5562aee7f1fad23ce4b78f7004c
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-
 
 //Authentication config
 app.use(require("express-session")({
@@ -50,7 +46,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 //Local Midleware config
 app.use(function(req, res, next){
     res.locals.user = req.user;
@@ -62,7 +57,9 @@ app.use(function(req, res, next){
 
 //Serving usage configuration
 app.use("/", indexAuthRoute);
-app.use("/real-estates/buy" ,propertiesBuyRoutes);
+app.use("/real-estates/users", usersRoutes);
+app.use("/real-estates/users/:id/reviews", usersReviewsRoutes);
+app.use("/real-estates/buy", propertiesBuyRoutes);
 app.use("/real-estates/rent", propertiesRentRoutes);
 app.use("/real-estates/buy/:id/comments", commentsBuyRoutes);
 app.use("/real-estates/rent/:id/comments", commentsRentRoutes);
