@@ -24,7 +24,7 @@
                                     <span>Description</span>
                                 </div>
                                 <div class="description">
-                                    <p><%=properties[i].description%></p>
+                                    <p><%=properties[i].description.substring(0, 100)%>...</p>
                                 </div>
                                 <div class="extra">
                                     <span>Additional Details</span>
@@ -35,7 +35,7 @@
                                     </p>
                                 </div>
                                 <div class="meta ui container right aligned">
-                                    <span class="ui column">Author: <a href="#"><%=properties[i].author.username%></a></span>
+                                    <span class="ui column">Author: <a href="/real-estates/users/<%=properties[i].author.id%>"><%=properties[i].author.username%></a></span>
                                     <span class="ui column">Posted: <span><%=moment(properties[i].timestamp).format('ll')%></span>
                                 </div>
                             </div>

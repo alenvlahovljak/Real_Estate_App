@@ -39,6 +39,7 @@ router.post("/register", function(req, res){
         state: req.body.state,
         zipCode: req.body.zipCode,
         country: req.body.country,
+        lastActive: Date.now()
     });
     User.register(newUser, req.body.password, function(err, user){
         if(err){
@@ -67,6 +68,14 @@ router.post("/login", passport.authenticate("local",
 
 //Logout route
 router.get("/logout", function(req, res){
+    User.findById(req.user._id, function(err, user){
+        if(err)
+            req.flash("error", err.message);
+        else{
+            user.lastActive = Date.now();
+            user.save();
+        }
+    });
     req.flash("success", "Goodbye " + req.user.username);
     req.logout();
     return res.redirect("/");

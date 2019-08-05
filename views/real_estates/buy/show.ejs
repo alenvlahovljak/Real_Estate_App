@@ -11,13 +11,13 @@
                         <div class="meta">
                             <span>@<%=property.author.id.username%></span>
                         </div>
-                        <div class="ui mini statistics">
+                        <div class="ui four mini statistics">
                             <div class="green statistic">
                                 <div class="label">
                                     <span>Positive</span>
                                 </div>
                                 <div class="value">
-                                    <span>-1</span>
+                                    <span><%=property.author.id.impressions.isPositive.length%></span>
                                 </div>
                             </div>
                             <div class="red statistic">
@@ -25,7 +25,7 @@
                                     <span>Negative</span>
                                 </div>
                                 <div class="value">
-                                    <span>-1</span>
+                                    <span><%=property.author.id.impressions.isNegative.length%></span>
                                 </div>
                             </div>
                             <div class="statistic">
@@ -33,7 +33,14 @@
                                     <span>Rating</span>
                                 </div>
                                 <div class="value">
-                                    <span>-1</span>
+                                    <%let rating = property.author.id.impressions.isPositive.length - property.author.id.impressions.isNegative.length%>
+                                    <%if(rating>0){%>
+                                        <span><i class="arrow up icon"></i></span>
+                                    <%} else if(rating===0){%>
+                                        <span><i class="arrow right icon"></i></span>
+                                    <%} else{%>
+                                        <span><i class="arrow down icon"></i></span>
+                                    <%}%>
                                 </div>
                             </div>
                             <div class="statistic">
@@ -42,14 +49,6 @@
                                 </div>
                                 <div class="value">
                                     <span><%=property.author.id.propertiesCount%></span>
-                                </div>
-                            </div>
-                            <div class="statistic">
-                                <div class="label">
-                                    <span>Registration Date</span>
-                                </div>
-                                <div class="value">
-                                    <span><%=moment(property.author.id.timestamp).format('ll')%></span>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +80,7 @@
                                     <span>Description</span>
                                 </div>
                                 <div class="description">
-                                    <p><%=property.description.slice(0, 100)%></p>
+                                    <p><%=property.description%></p>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +106,7 @@
                             </div> 
                             <div class="ui divider"></div>
                             <div class="ui two column stackable grid container">
-                                <span class="ui seven wide left aligned column">Author: <a href="#"><%=property.author.username%></a></span>
+                                <span class="ui seven wide left aligned column">Author: <a href="/real-estates/users/<%=property.author.id._id%>"><%=property.author.username%></a></span>
                                 <span class="ui nine wide right aligned column">Posted: <span><%=moment(property.timestamp).format('LL')%></span>
                             </div>
                         </div>

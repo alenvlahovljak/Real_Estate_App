@@ -1,18 +1,18 @@
 <%include ../partials/header%>
-    <div class="ui one column stackable center aligned page grid">
-        <div class="column ten wide">
-            <div class="ui segment">
-                <form action="/real-estates/<%=realEstate._id%>/reviews/<%=review._id%>?_method=PUT" method="POST" class="ui form">
-                    <h4 class="ui dividing header">Edit Review for <%=realEstate.title%></h4>
-                    <div class="field">
-                        <input type="number" name="review[rating]" min="1" max="5" value="<%=review.rating%>">
-                    </div>
-                    <div class="field">
-                        <textarea name="review[comment]"><%=review.comment%></textarea>
-                    </div>
-                    <button class="ui green button">Edit Review</button>
-                </form>
-            </div>
-        </div>      
+    <div class="ui grid center aligned">
+        <div class="ten wide computer ten wide tablet sixteen wide mobile column">
+            <form class="ui form segment" action="/real-estates/users/<%=userAuthor._id%>/reviews/<%=review._id%>?_method=PUT" method="POST">
+                <h4 class="ui dividing header">Edit Review for <%=userAuthor.username%></h4>
+                <div class="field">
+                    <label>Rating (1-5)</label>
+                    <input type="number" name="review[rating]" value="<%=review.rating%>" required="required">
+                </div>
+                <div class="field">
+                    <label>Review</label>
+                    <textarea name="review[text]" required="required"><%=review.text%></textarea>
+                </div>
+                <button class="ui button green" tabindex="0">Edit Review</button>
+            </form>
+        </div>
     </div>
 <%include ../partials/footer%>

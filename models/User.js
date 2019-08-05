@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 
+//Mongoose schema
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
@@ -16,7 +17,18 @@ const userSchema = new mongoose.Schema({
     zipCode: String,
     country: String,
     timestamp: {type: Date, default: Date.now},
-    propertiesCount: {type: Number, default: 0}
+    reviews: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Review"
+        }
+    ],
+    propertiesCount: {type: Number, default: 0},
+    lastActive: {type: Date, default: 0},
+    impressions: {
+        isPositive: [{type: String, default: undefined}],
+        isNegative: [{type: String, default: undefined}]
+    }
 });
 
 userSchema.plugin(passportLocalMongoose);

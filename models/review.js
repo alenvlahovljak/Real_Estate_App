@@ -1,22 +1,18 @@
-//Mongoose set up
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-//Mongoose Schema
-var reviewSchema = mongoose.Schema({
-    user: String,
-    image: String,
-    comment: String,
-    rating: Number,
-    author: {
-        id: {
+//Mongoose schema
+const reviewSchema = new mongoose.Schema({
+    author:{
+        id:{
             type: mongoose.Schema.Types.ObjectId,
-            ref:"User",
+            ref: "User",
         },
         username: String,
         avatar: String,
     },
-    timestamp: {type: Date, default: Date.now},
-})
+    rating: Number,
+    text: String,
+    timestamp: {type: Date, default: Date.now}
+});
 
-//Mongoose Model Export
 module.exports = mongoose.model("Review", reviewSchema);
