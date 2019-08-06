@@ -65,15 +65,11 @@ app.use("/real-estates/buy/:id/comments", commentsBuyRoutes);
 app.use("/real-estates/rent/:id/comments", commentsRentRoutes);
 
 //Error 404 route
-app.get("*", function(req, res){
-    res.send("Page not found");
-});
+app.get("*", function(req, res)=> res.send("Page not found"));
 
 //Express listening route (Local & Heroku)
 let port = process.env.PORT;
 if(port==null || port==""){
   port = 3000;
 }
-app.listen(port, function(){
-    console.log("Application has started!");
-});
+app.listen(port, function()=> console.log("Application has started!"));
