@@ -11,29 +11,33 @@ const User = require("../../models/User");
 const middleware = require("../../middleware");
 
 //NEW route
-router.get("/new", middleware.isLoggedIn, function(req, res){
-    Property.findById(req.params.id, function(err, property){
-        if(err)
+router.get("/new", middleware.isLoggedIn, (req, res)=>{
+    Property.findById(req.params.id, (err, property)=>{
+        if(err){
             req.flash("error", err.message);
-        else
+            return res.redirect("/real-estates/rent/" + req.params.id);
+        } else
             res.render("comments/rent/new", {property: property});
     });
 });
 
 //CREATE route
-router.post("/", middleware.isLoggedIn, function(req, res){
-    Property.findById(req.params.id, function(err, property){
-        if(err)
+router.post("/", middleware.isLoggedIn, (req, res)=>{
+    Property.findById(req.params.id, (err, property)=>{
+        if(err){
             req.flash("error", err.message);
-        else{
-            Comment.create(req.body.comment, function(err, comment){
-                if(err)
+            return res.redirect("/real-estates/rent/" + req.params.id);
+        } else{
+            Comment.create(req.body.comment, (err, comment)=>{
+                if(err){
                     req.flash("error", err.message);
-                else{
-                    User.findById(req.user._id, function(err, user){
-                        if(err)
+                    return res.redirect("/real-estates/rent/" + req.params.id);
+                } else{
+                    User.findById(req.user._id, (err, user)=>{
+                        if(err){
                             req.flash("error", err.message);
-                        else
+                            return res.redirect("/real-estates/rent/" + req.params.id);
+                        } else
                             user.commentsCount++;
                         user.save();
                     });
@@ -52,15 +56,17 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 });
 
 //EDIT route
-router.get("/:id_comment/edit", middleware.isCommentAuthor, function(req, res){
-    Property.findById(req.params.id, function(err, property){
-        if(err)
+router.get("/:id_comment/edit", middleware.isCommentAuthor, (req, res)=>{
+    Property.findById(req.params.id, (err, property)=>{
+        if(err){
             req.flash("success", "Successfully created " + property.name);
-        else{
-            Comment.findById(req.params.id_comment, function(err, comment){
-                if(err)
+            return res.redirect("/real-estates/rent/" + req.params.id);
+        } else{
+            Comment.findById(req.params.id_comment, (err, comment)=>{
+                if(err){
                     req.flash("success", "Successfully created " + property.name);
-                else
+                    return res.redirect("/real-estates/rent/" + req.params.id);
+                } else
                     res.render("comments/rent/edit", {property: property, comment: comment});
             });
         }
@@ -68,13 +74,13 @@ router.get("/:id_comment/edit", middleware.isCommentAuthor, function(req, res){
 });
 
 //UPDATE route
-router.put("/:id_comment", middleware.isCommentAuthor, function(req, res){
-    Property.findById(req.params.id, function(err, property){
+router.put("/:id_comment", middleware.isCommentAuthor, (req, res)=>{
+    Property.findById(req.params.id, (err, property)=>{
         if(err)
             req.flash("error", err.message);
         else{
-            Comment.findByIdAndUpdate(req.params.id_comment, req.body.comment, function(err, comment){
-                comment.timestamp = setCommentTimestamp(comment.timestamp);
+            Comment.findByIdAndUpdate(req.params.id_comment, req.body.comment, (err, comment)=>{
+                comment.timestamp = res.locals.timestamp;
                 comment.save();
                 if(err)
                     req.flash("error", err.message);
@@ -88,19 +94,22 @@ router.put("/:id_comment", middleware.isCommentAuthor, function(req, res){
 });
 
 //DESTROY route
-router.delete("/:id_comment", middleware.isCommentAuthor, function(req, res){
-    Property.findById(req.params.id, function(err){
-        if(err)
+router.delete("/:id_comment", middleware.isCommentAuthor, (req, res)=>{
+    Property.findById(req.params.id, (err)=>{
+        if(err){
             req.flash("error", err.message);
-        else{
-            Comment.findByIdAndDelete(req.params.id_comment, function(err){
-                if(err)
+            return res.redirect("/real-estates/rent/" + req.params.id);
+        } else{
+            Comment.findByIdAndDelete(req.params.id_comment, (err)=>{
+                if(err){
                     req.flash("error", err.message);
-                else{
-                    User.findById(req.user._id, function(err, user){
-                        if(err)
+                    return res.redirect("/real-estates/rent/" + req.params.id);
+                } else{
+                    User.findById(req.user._id, (err, user)=>{
+                        if(err){
                             req.flash("error", err.message);
-                        else
+                            return res.redirect("/real-estates/rent/" + req.params.id);
+                        } else
                             user.commentsCount--;
                         user.save();
                     });
@@ -112,12 +121,5 @@ router.delete("/:id_comment", middleware.isCommentAuthor, function(req, res){
     });
 });
 
-
-
-
-
-function setCommentTimestamp(timestamp){
-    return timestamp = Date.now();
-}
-
+//Router export config
 module.exports = router;

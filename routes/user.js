@@ -9,11 +9,12 @@ const User = require("../models/User");
 const middleware = require("../middleware");
 
 //SHOW route
-router.get("/:id", function(req, res){
-    User.findById(req.params.id).populate("reviews").exec(function(err, userAuthor){
-        if(err)
+router.get("/:id", (req, res)=>{
+    User.findById(req.params.id).populate("reviews").exec((err, userAuthor)=>{
+        if(err){
             req.flash("error", err.message);
-        else{
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else{
             if(req.user && req.user.username==userAuthor.username){
                 userAuthor.lastActive = Date.now();
                 userAuthor.save();
@@ -24,17 +25,18 @@ router.get("/:id", function(req, res){
 });
 
 //CREATE route - positive impression
-router.post("/:id/impressions/positive", middleware.isNotSameUserForPositiveImpression, function(req, res){
-    User.findById(req.params.id, function(err, user){
-        if(err)
+router.post("/:id/impressions/positive", middleware.isNotSameUserForPositiveImpression, (req, res)=>{
+    User.findById(req.params.id, (err, user)=>{
+        if(err){
             req.flash("error", err);
-        else{
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else{
             user.impressions.isPositive.push(req.user._id);
-            let newNeagitve =  user.impressions.isNegative.filter(function(negative){
+            let newNeagitve =  user.impressions.isNegative.filter((negative)=>{
                 return req.user._id == negative; 
             });
             if(newNeagitve){
-                let newNegatives = user.impressions.isNegative.find(function(negative){
+                let newNegatives = user.impressions.isNegative.find((negative)=>{
                     return req.user._id != negative;
                 });
                 user.impressions.isNegative = newNegatives;
@@ -47,17 +49,18 @@ router.post("/:id/impressions/positive", middleware.isNotSameUserForPositiveImpr
 });
 
 //CREATE route - negative impression
-router.post("/:id/impressions/negative", middleware.isNotSameUserForNegativeImpression, function(req, res){
-    User.findById(req.params.id, function(err, user){
-        if(err)
+router.post("/:id/impressions/negative", middleware.isNotSameUserForNegativeImpression, (req, res)=>{
+    User.findById(req.params.id, (err, user)=>{
+        if(err){
             req.flash("error", err);
-        else{
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else{
             user.impressions.isNegative.push(req.user._id);
-            let newPositive =  user.impressions.isPositive.filter(function(positive){
+            let newPositive =  user.impressions.isPositive.filter((positive)=>{
                 return req.user._id == positive; 
             });
             if(newPositive){
-                let newPositives = user.impressions.isNegative.find(function(positive){
+                let newPositives = user.impressions.isNegative.find((positive)=>{
                     return req.user._id != positive;
                 });
                 user.impressions.isPositive = newPositives;
@@ -69,4 +72,5 @@ router.post("/:id/impressions/negative", middleware.isNotSameUserForNegativeImpr
     });
 });
 
+//Router export config
 module.exports = router;

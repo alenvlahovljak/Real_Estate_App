@@ -10,25 +10,28 @@ const User = require("../models/User");
 const middleware = require("../middleware");
 
 //NEW route
-router.get("/new", middleware.isLoggedInAndIsNotThisUser, function(req, res){
-    User.findById(req.params.id, function(err, userAuthor){
-        if(err)
+router.get("/new", middleware.isLoggedInAndIsNotThisUser, (req, res)=>{
+    User.findById(req.params.id, (err, userAuthor)=>{
+        if(err){
             req.flash("error", err.message);
-        else
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else
             res.render("reviews/new", {userAuthor: userAuthor});
     });
 });
 
 //CREATE route
-router.post("/", middleware.isLoggedInAndIsNotThisUser, function(req, res){
-    User.findById(req.params.id, function(err, userAuthor){
-        if(err)
+router.post("/", middleware.isLoggedInAndIsNotThisUser, (req, res)=>{
+    User.findById(req.params.id, (err, userAuthor)=>{
+        if(err){
             req.flash("error", err.message);
-        else{
-            Review.create(req.body.review, function(err, review){
-                if(err)
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else{
+            Review.create(req.body.review, (err, review)=>{
+                if(err){
                     req.flash("error", err.message);
-                else{
+                    return res.redirect("/real-estates/users/" + req.params.id);
+                } else{
                     review.author.id = req.user._id;
                     review.author.username = req.user.username;
                     review.author.avatar = req.user.avatar;
@@ -44,15 +47,17 @@ router.post("/", middleware.isLoggedInAndIsNotThisUser, function(req, res){
 });
 
 //EDIT route
-router.get("/:id_review/edit", middleware.isReviewAuthor, function(req, res){
-    User.findById(req.params.id, function(err, userAuthor){
-        if(err)
+router.get("/:id_review/edit", middleware.isReviewAuthor, (req, res)=>{
+    User.findById(req.params.id, (err, userAuthor)=>{
+        if(err){
             req.flash("error", err.message);
-        else{
-            Review.findById(req.params.id_review, function(err, review){
-                if(err)
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else{
+            Review.findById(req.params.id_review, (err, review)=>{
+                if(err){
                     req.flash("error", err.message);
-                else
+                    return res.redirect("/real-estates/users/" + req.params.id);
+                } else
                     res.render("reviews/edit", {userAuthor: userAuthor, review: review});
             });
         }
@@ -60,17 +65,19 @@ router.get("/:id_review/edit", middleware.isReviewAuthor, function(req, res){
 });
 
 //UPDATE route
-router.put("/:id_review", middleware.isReviewAuthor, function(req, res){
-    User.findById(req.params.id, function(err){
-        if(err)
+router.put("/:id_review", middleware.isReviewAuthor, (req, res)=>{
+    User.findById(req.params.id, (err)=>{
+        if(err){
             req.flash("error", err.message);
-        else{
-            Review.findByIdAndUpdate(req.params.id_review, req.body.review, function(err, review){
-                review.timestamp = setCommentTimestamp(review.timestamp);
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else{
+            Review.findByIdAndUpdate(req.params.id_review, req.body.review, (err, review)=>{
+                review.timestamp = res.locals.timestamp;
                 review.save();
-                if(err)
+                if(err){
                     req.flash("error", err.message);
-                else{
+                    return res.redirect("/real-estates/users/" + req.params.id);
+                } else{
                     req.flash("success", "Successfully edited review.");
                     return res.redirect("/real-estates/users/" + req.params.id);
                 }
@@ -80,15 +87,17 @@ router.put("/:id_review", middleware.isReviewAuthor, function(req, res){
 });
 
 //DESTROY route
-router.delete("/:id_review", middleware.isReviewAuthor, function(req, res){
-    User.findById(req.params.id, function(err){
-        if(err)
+router.delete("/:id_review", middleware.isReviewAuthor, (req, res)=>{
+    User.findById(req.params.id, (err)=>{
+        if(err){
             req.flash("error", err.message);
-        else{
-            Review.findByIdAndDelete(req.params.id_review, function(err){
-                if(err)
+            return res.redirect("/real-estates/users/" + req.params.id);
+        } else{
+            Review.findByIdAndDelete(req.params.id_review, (err)=>{
+                if(err){
                     req.flash("error", err.message);
-                else{
+                    return res.redirect("/real-estates/users/" + req.params.id);
+                } else{
                     req.flash("success", "Successfully deleted review.");
                     return res.redirect("/real-estates/users/" + req.params.id);
                 }
@@ -97,8 +106,5 @@ router.delete("/:id_review", middleware.isReviewAuthor, function(req, res){
     })
 });
 
-function setCommentTimestamp(timestamp){
-    return timestamp = Date.now();
-}
-
+//Router export config
 module.exports = router;
