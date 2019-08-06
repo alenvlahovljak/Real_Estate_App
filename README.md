@@ -1,7 +1,6 @@
 # Real_Estate_App
  Reall Estate Site for buy, sell or rent property.
- 
-=======
+
 # ![Node/Express/Mongoose Example App](project-image.PNG)
 
 > ### Example Node (Express + Mongoose) real world application example (CRUD, auth, REST, etc.).
