@@ -47,7 +47,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //Local Midleware config
-app.use(function(req, res, next){
+app.use((req, res, next)=>{
     res.locals.user = req.user;
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success");
@@ -66,15 +66,11 @@ app.use("/real-estates/buy/:id/comments", commentsBuyRoutes);
 app.use("/real-estates/rent/:id/comments", commentsRentRoutes);
 
 //Error 404 route
-app.get("*", function(req, res){
-    res.send("Page not found");
-});
+app.get("*", (req, res)=> res.send("Page not found"));
 
 //Express listening route (Local & Heroku)
 let port = process.env.PORT;
 if(port==null || port==""){
   port = 3000;
 }
-app.listen(port, function(){
-    console.log("Application has started!");
-});
+app.listen(port, ()=> console.log("Application has started!"));
