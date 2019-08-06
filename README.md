@@ -1,5 +1,5 @@
 # Real_Estate_App
- Reall Estate Site for buy, sell or rent property.
+ Reall Estate Site for buy, sell or rent properties.
 
 # ![Node/Express/Mongoose Example App](project-image.PNG)
 
