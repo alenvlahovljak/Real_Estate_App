@@ -39,5 +39,6 @@ Alternately, to quickly try out this repo in Heroku: https://real-estate-app-77.
 - `routes/` - This folder contains the route definitions for our API.
 - `models/` - This folder contains the schema definitions for our Mongoose models.
 
+## Error Handling
 
- Heroku: https://real-estate-app-77.herokuapp.com/
+Using flash messages.
